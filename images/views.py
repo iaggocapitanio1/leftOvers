@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import status
+
 from images.models import Image
 from images.serializers import ImageSerializer
+from images.filter import ImageFilter
 
 
 class ImageViewSet(viewsets.ModelViewSet):
@@ -14,34 +14,4 @@ class ImageViewSet(viewsets.ModelViewSet):
     """
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-
-    def create(self, request, *args, **kwargs):
-        "Logica para capturar a image e os seu atributos"
-        """
-        Pillow, attrs 
-        
-        os attrs:  
-        length = int
-        width = int
-        thickness = int
-        useless_length = int
-        useless_width = int
-        path = Convert the pillow image to a byte array
-        type = str
-        
-        """
-        data = dict(
-            length="int",
-            width = "int",
-            thickness = "int",
-            useless_length = "int",
-             useless_width = "int",
-            path = "Convert the pillow image to a byte array",
-            ype = "str"
-        )
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    filterset_class = ImageFilter

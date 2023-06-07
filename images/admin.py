@@ -5,4 +5,4 @@ from images.models import Image
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'type', 'created')
+    list_display = ('created', 'file_type')
